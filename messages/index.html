@@ -9,13 +9,6 @@
     function parse() {
         jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
         
-        //var boyMessage = jsonData[0].content;
-        //var boy = jsonData[0].username;
-        //var georgeMessage = jsonData[1].content;
-        //var george = jsonData[1].username;
-        //document.write(boyMessage + " " + boy + "\n");
-        //document.write(georgeMessage + " " + george);
-        
         var boy = JSON.parse('{"id":1,"content":"Do you really want to hurt me?","username":"Boy"}');
         document.write(boy.content + " " + boy.username + '\n');
         var george = JSON.parse('{"id":2,"content":"Do you really want to make me cry?","username":"George"}');
