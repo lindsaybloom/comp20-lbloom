@@ -1,66 +1,45 @@
 var southLat = 42.352271;
 var southLng = -71.05524200000001;
-
 var andrewLat = 42.330154;
-var andrewLng = -71.057655
-
+var andrewLng = -71.057655;
 var porterLat = 42.3884;
 var porterLng = -71.11914899999999;
-
 var harvardLat = 42.373362;
-var harvardLng = -71.118956
-
+var harvardLng = -71.118956;
 var jfkumassLat = 42.320685;
-var jfkumassLng = -71.052391
-
+var jfkumassLng = -71.052391;
 var savinLat = 42.31129;
 var savinLng = -71.053331;
-
 var parkLat = 42.35639457;
 var parkLng = -71.0624242;
-
 var broadwayLat = 42.342622;
 var broadwayLng = -71.056967;
-
 var northquincyLat = 42.275275;
 var northquincyLng = -71.029583;
-
 var shawmutLat = 42.29312583;
 var shawmutLng = -71.06573796000001;
-
 var davisLat = 42.39674;
 var davisLng =  -71.121815;
-
 var alewifeLat = 42.395428;
 var alewifeLng = -71.142483;
-
 var kendallLat = 42.36249079;
 var kendallLng = -71.08617653;
-
 var charlesLat = 42.361166;
 var charlesLng = -71.070628;
-
 var dtncrossingLat = 42.355518;
 var dtncrossingLng = -71.060225;
-
 var quincycenterLat = 42.251809;
 var quincycenterLng = -71.005409;
-
 var quincyadamsLat = 42.233391;
 var quincyadamsLng = -71.007153;
-
 var ashmontLat = 42.284652;
 var ashmontLng = -71.06448899999999;
-
 var wollastonLat = 42.2665139;
 var wollastonLng = -71.0203369;
-
 var fieldscornerLat = 42.300093;
 var fieldscornerLng = -71.061667;
-
 var centralLat = 42.365486;
 var centralLng = -71.103802;
-
 var braintreeLat = 42.2078543;
 var braintreeLng = -71.0011385;
 
@@ -119,11 +98,9 @@ var centralMarker;
 var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
 
-function getMyLocation() {
+function center() {
     if (navigator.geolocation) { 
         navigator.geolocation.getCurrentPosition(function(position) {
-            //myLat = position.coords.latitude;
-            //myLng = position.coords.longitude;
             southLat = 42.352271;
             southLng = -71.05524200000001
             renderMap();
@@ -137,17 +114,78 @@ function getMyLocation() {
 function init()
 {
     map = new google.maps.Map(document.getElementById("map"), myOptions);
-    getMyLocation();
+    center();
+  
+    var mainPath = [
+        {lat: alewifeLat, lng: alewifeLng},
+        {lat: davisLat, lng: davisLng},
+        {lat: porterLat, lng: porterLng},
+        {lat: harvardLat, lng: harvardLng},
+        {lat: centralLat, lng: centralLng},
+        {lat: kendallLat, lng: kendallLng},
+        {lat: charlesLat, lng: charlesLng},
+        {lat: parkLat, lng: parkLng},
+        {lat: dtncrossingLat, lng: dtncrossingLng},
+        {lat: southLat, lng: southLng},
+        {lat: broadwayLat, lng: broadwayLng},
+        {lat: andrewLat, lng: andrewLng},
+        {lat: jfkumassLat, lng: jfkumassLng}
+    ];
+    
+    var braintreePath = [
+        {lat: jfkumassLat, lng: jfkumassLng},
+        {lat: northquincyLat, lng: northquincyLng},
+        {lat: wollastonLat, lng: wollastonLng},
+        {lat: quincycenterLat, lng: quincyadamsLng},
+        {lat: quincyadamsLat, lng: quincyadamsLng},
+        {lat: braintreeLat, lng: braintreeLng}
+    ];
+    
+    var ashmontPath = [
+        {lat: jfkumassLat, lng: jfkumassLng},
+        {lat: savinLat, lng: savinLng},
+        {lat: fieldscornerLat, lng: fieldscornerLng},
+        {lat: shawmutLat, lng: shawmutLng},
+        {lat: ashmontLat, lng: ashmontLng}
+    ];
+
+    
+    var mainLine = new google.maps.Polyline({
+        path: mainPath,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    mainLine.setMap(map);
+    
+    var braintreeLine = new google.maps.Polyline({
+        path: braintreePath,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    braintreeLine.setMap(map);
+    
+    var ashmontLine = new google.maps.Polyline({
+        path: ashmontPath,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    ashmontLine.setMap(map);
+    
 }
 
 function renderMap()
 {
     SouthStation = new google.maps.LatLng(southLat, southLng);
 
-    // Update map and go there...
     map.panTo(SouthStation);
 
-    // Create a marker
+    //marker pins for each station
     southMarker = new google.maps.Marker({
         position: SouthStation,
         title: "South Station"
@@ -280,7 +318,7 @@ function renderMap()
     });
     braintreeMarker.setMap(map);
     
-    // Open info window on click of marker
+    //Info windows for each station
     google.maps.event.addListener(southMarker, 'click', function() {
         infowindow.setContent(southMarker.title);
         infowindow.open(map, southMarker);
