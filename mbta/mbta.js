@@ -184,137 +184,161 @@ function renderMap()
     SouthStation = new google.maps.LatLng(southLat, southLng);
 
     map.panTo(SouthStation);
+    
+    
 
     //marker pins for each station
     southMarker = new google.maps.Marker({
         position: SouthStation,
-        title: "South Station"
+        title: "South Station",
+        icon: 'marker.png'
     });
     southMarker.setMap(map);
     
     andrewMarker = new google.maps.Marker({
         position: AndrewStation,
-        title: "Andrew Station"
+        title: "Andrew Station",
+        icon: 'marker.png'
     });
     andrewMarker.setMap(map);
     
     porterMarker = new google.maps.Marker({
         position: PorterStation,
-        title: "Porter Square Station"
+        title: "Porter Square Station",
+        icon: 'marker.png'
     });
     porterMarker.setMap(map);
     
     harvardMarker = new google.maps.Marker({
         position: HarvardStation,
-        title: "Harvard Square Station"
+        title: "Harvard Square Station",
+        icon: 'marker.png'
     });
     harvardMarker.setMap(map);
 
     jfkumassMarker = new google.maps.Marker({
         position: JFKUmassStation,
-        title: "JFK/UMass Station"
+        title: "JFK/UMass Station",
+        icon: 'marker.png'
     });
     jfkumassMarker.setMap(map);
     
     savinMarker = new google.maps.Marker({
         position: SavinHillStation,
-        title: "Savin Hill Station"
+        title: "Savin Hill Station",
+        icon: 'marker.png'
     });
     savinMarker.setMap(map);
     
     parkMarker = new google.maps.Marker({
         position: ParkStreetStation,
-        title: "Park Street Station"
+        title: "Park Street Station",
+        icon: 'marker.png'
     });
     parkMarker.setMap(map);
     
     broadwayMarker = new google.maps.Marker({
         position: BroadwayStation,
-        title: "Broadway Station"
+        title: "Broadway Station",
+        icon: 'marker.png'
     });
     broadwayMarker.setMap(map);
     
     northquincyMarker = new google.maps.Marker({
         position: NorthQuincyStation,
-        title: "North Quincy Station"
+        title: "North Quincy Station",
+        icon: 'marker.png'
     });
     northquincyMarker.setMap(map);
     
     shawmutMarker = new google.maps.Marker({
         position: ShawmutStation,
-        title: "Shawmut Station"
+        title: "Shawmut Station",
+        icon: 'marker.png'
     });
     shawmutMarker.setMap(map);
     
     davisMarker = new google.maps.Marker({
         position: DavisStation,
-        title: "Davis Square Station"
+        title: "Davis Square Station",
+        icon: 'marker.png'
     });
     davisMarker.setMap(map);
     
     alewifeMarker = new google.maps.Marker({
         position: AlewifeStation,
-        title: "Alewife Station"
+        title: "Alewife Station",
+        icon: 'marker.png'
     });
     alewifeMarker.setMap(map);
     
     kendallMarker = new google.maps.Marker({
         position: KendallMITStation,
-        title: "Kendall/MIT Station"
+        title: "Kendall/MIT Station",
+        icon: 'marker.png'
     });
     kendallMarker.setMap(map);
     
     charlesMarker = new google.maps.Marker({
         position: CharlesMGHStation,
-        title: "Charles/MGH Station"
+        title: "Charles/MGH Station",
+        icon: 'marker.png'
     });
     charlesMarker.setMap(map);
     
     dtncrossingMarker = new google.maps.Marker({
         position: DowntownCrossingStation,
-        title: "Downtown Crossing Station"
+        title: "Downtown Crossing Station",
+        icon: 'marker.png'
     });
     dtncrossingMarker.setMap(map);
     
     quincycenterMarker = new google.maps.Marker({
         position: QuincyCenterStation,
-        title: "Quincy Center Station"
+        title: "Quincy Center Station",
+        icon: 'marker.png'
     });
     quincycenterMarker.setMap(map);
     
     quincyadamsMarker = new google.maps.Marker({
         position: QuincyAdamsStation,
-        title: "Quincy Adams Station"
+        title: "Quincy Adams Station",
+        icon: 'marker.png'
     });
     quincyadamsMarker.setMap(map);
     
     ashmontMarker = new google.maps.Marker({
         position: AshmontStation,
-        title: "Ashmont Station"
+        title: "Ashmont Station",
+        icon: 'marker.png'
     });
     ashmontMarker.setMap(map);
     
     wollastonMarker = new google.maps.Marker({
         position: WollastonStation,
-        title: "Wollaston Station"
+        title: "Wollaston Station",
+        icon: 'marker.png'
     });
     wollastonMarker.setMap(map);
     
     fieldscornerMarker = new google.maps.Marker({
         position: FieldsCornerStation,
-        title: "Fields Corner Station"
+        title: "Fields Corner Station",
+        icon: 'marker.png'
     });
     fieldscornerMarker.setMap(map);
     
     centralMarker = new google.maps.Marker({
         position: CentralStation,
-        title: "Central Square Station"
+        title: "Central Square Station",
+        icon: 'marker.png'
     });
     centralMarker.setMap(map);
     
     braintreeMarker= new google.maps.Marker({
         position: BraintreeStation,
-        title: "Braintree Station"
+        title: "Braintree Station",
+        icon: 'marker.png'
     });
     braintreeMarker.setMap(map);
     
