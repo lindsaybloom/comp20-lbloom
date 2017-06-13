@@ -43,8 +43,6 @@ var centralLng = -71.103802;
 var braintreeLat = 42.2078543;
 var braintreeLng = -71.0011385;
 
-var request = new XMLHttpRequest();
-
 var SouthStation = new google.maps.LatLng(southLat, southLng);
 var AndrewStation = new google.maps.LatLng(andrewLat, andrewLng);
 var PorterStation = new google.maps.LatLng(porterLat, porterLng);
@@ -99,16 +97,9 @@ var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
 
 function center() {
-    if (navigator.geolocation) { 
-        navigator.geolocation.getCurrentPosition(function(position) {
-            southLat = 42.352271;
-            southLng = -71.05524200000001
-            renderMap();
-        });
-    }
-    else {
-        alert("Geolocation is not supported by your web browser.  What a shame!");
-    }
+    southLat = 42.352271;
+    southLng = -71.05524200000001
+    renderMap();
 }
 
 function init()
