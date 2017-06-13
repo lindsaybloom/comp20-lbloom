@@ -9,9 +9,11 @@
     function parse() {
         jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
         
-        var boy = JSON.parse('{"id":1,"content":"Do you really want to hurt me?","username":"Boy"}');
-        document.write(boy.content + " " + boy.username + '\n');
-        var george = JSON.parse('{"id":2,"content":"Do you really want to make me cry?","username":"George"}');
+        var objects = JSON.parse(jsonData);
+        var boy = objects[0];
+        var george = objects[1];
+        document.write(boy.content + " " + boy.username);
+        document.write("<br>");
         document.write(george.content + " " + george.username);
     }
   </script>
