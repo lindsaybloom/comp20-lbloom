@@ -11,7 +11,7 @@ var shawmut = {lat: 42.29312583, lng: -71.06573796000001};
 var davis = {lat: 42.39674, lng: -71.121815};
 var alewife = {lat: 42.395428, lng: -71.142483};
 var kendall = {lat: 42.36249079, lng: -71.08617653};
-var charles = {lat: 2.361166, lng: -71.070628};
+var charles = {lat: 42.361166, lng: -71.070628};
 var dtncrossing = {lat: 42.355518, lng: -71.060225};
 var quincycenter = {lat: 42.251809, lng: -71.005409};
 var quincyadams = {lat: 42.233391, lng: -71.00715};
@@ -44,8 +44,10 @@ var FieldsCornerStation = new google.maps.LatLng(fieldscorner.lat, fieldscorner.
 var CentralStation = new google.maps.LatLng(central.lat, central.lng);
 var BraintreeStation = new google.maps.LatLng(braintree.lat, braintree.lng);
 
+
+
 var myOptions = {
-    zoom: 13, // The larger the zoom number, the bigger the zoom
+    zoom: 13,
     center: myMarker,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
@@ -75,6 +77,7 @@ var fieldscornerMarker;
 var centralMarker;
 var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
+
 
 function getMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -116,7 +119,7 @@ function init()
 
     var ashmontPath = [
         {lat: jfkumass.lat, lng: jfkumass.lng},
-        {lat: savin.lat, lng: savi.lng},
+        {lat: savin.lat, lng: savin.lng},
         {lat: fieldscorner.lat, lng: fieldscorner.lng},
         {lat: shawmut.lat, lng: shawmut.lng},
         {lat: ashmont.lat, lng: ashmont.lng}
@@ -169,13 +172,9 @@ function addInfo(marker, title){
     });
 }
 
-//function closestStation(lat, lng){
-
-//}
-
 function renderMap()
 {
-    var myLocation = new google.maps.LatLng(myLat, myLng);
+    myLocation = new google.maps.LatLng(myLat, myLng);
     myMarker = new google.maps.Marker({
         position: myLocation,
         title: "Your location",
@@ -183,11 +182,6 @@ function renderMap()
     });
     myMarker.setMap(map);
     map.panTo(myLocation);
-
-    google.maps.event.addListener(myMarker, 'click', function() {
-        infowindow.setContent(myMarker.title);
-        infowindow.open(map, myMarker);
-    });
 
     southMarker = createMarker(southMarker, SouthStation, "South Station");
     andrewMarker = createMarker(andrewMarker, AndrewStation, "Andrew Station");
@@ -212,6 +206,25 @@ function renderMap()
     centralMarker = createMarker(centralMarker, CentralStation, "Central Station");
     braintreeMarker = createMarker(braintreeMarker, BraintreeStation, "Braintree Station");
 
+    var nearestStation = closestStation();
+    google.maps.event.addListener(myMarker, 'click', function() {
+        infowindow.setContent(nearestStation.name + " is the nearest station to your current location.");
+        infowindow.open(map, myMarker);
+    });
+    myPath = [
+        {lat: myLat, lng: myLng},
+        {lat: nearestStation.lat, lng: nearestStation.lng}
+    ] 
+
+    var closestLine = new google.maps.Polyline({
+        path: myPath,
+        geodesic: true,
+        strokeColor: '#0000FF',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+    closestLine.setMap(map);
+
     addInfo(southMarker, southMarker.title);
     addInfo(andrewMarker, andrewMarker.title);
     addInfo(porterMarker, porterMarker.title);
@@ -234,5 +247,43 @@ function renderMap()
     addInfo(fieldscornerMarker, fieldscornerMarker.title);
     addInfo(centralMarker, centralMarker.title);
     addInfo(braintreeMarker, braintreeMarker.title);
+
 }
 
+
+function closestStation(){
+    var distances = [
+        {"name": "South", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, SouthStation), "lat": south.lat, "lng": south.lng},
+        {"name": "Andrew", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, AndrewStation), "lat": andrew.lat, "lng": andrew.lng},
+        {"name": "Porter", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, PorterStation), "lat": porter.lat, "lng": porter.lng},
+        {"name": "Harvard", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, HarvardStation), "lat": harvard.lat, "lng": harvard.lng},
+        {"name": "JFK/UMass", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, JFKUmassStation), "lat": jfkumass.lat, "lng": jfkumass.lng},
+        {"name": "Savin", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, SavinHillStation), "lat": savin.lat, "lng": savin.lng},
+        {"name": "Park", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, ParkStreetStation), "lat": park.lat, "lng": park.lng},
+        {"name": "Broadway", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, BroadwayStation), "lat": broadway.lat, "lng": broadway.lng},
+        {"name": "Northquincy", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, NorthQuincyStation), "lat": northquincy.lat, "lng": northquincy.lng},
+        {"name": "Shawmut", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, ShawmutStation), "lat": shawmut.lat, "lng": shawmut.lng},
+        {"name": "Davis Square", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, DavisStation), "lat": davis.lat, "lng": davis.lng},
+        {"name": "Alewife", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, AlewifeStation), "lat": alewife.lat, "lng": alewife.lng},
+        {"name": "Kendall/MIT", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, KendallMITStation), "lat": kendall.lat, "lng": kendall.lng},
+        {"name": "Charles/MGH", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, CharlesMGHStation), "lat": charles.lat, "lng": charles.lng},
+        {"name": "Dtncrossing", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, DowntownCrossingStation), "lat": dtncrossing.lat, "lng": dtncrossing.lng},
+        {"name": "Quincy Center", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, QuincyCenterStation), "lat": quincycenter.lat, "lng": quincycenter.lng},
+        {"name": "Quincy Adams", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, QuincyAdamsStation), "lat": quincyadams.lat, "lng": quincyadams.lng},
+        {"name": "Ashmont", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, AshmontStation), "lat": ashmont.lat, "lng": ashmont.lng},
+        {"name": "Wollaston", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, WollastonStation), "lat": wollaston.lat, "lng": wollaston.lng},
+        {"name": "Fields Corner", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, FieldsCornerStation), "lat": fieldscorner.lat, "lng": fieldscorner.lng},
+        {"name": "Central", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, CentralStation), "lat": central.lat, "lng": central.lng},
+        {"name": "Braintree", "distance": google.maps.geometry.spherical.computeDistanceBetween(myLocation, BraintreeStation), "lat": braintree.lat, "lng": braintree.lng}
+    ]
+    var shortest = distances[0];
+    var shortestDistance = google.maps.geometry.spherical.computeDistanceBetween(myLocation, SouthStation);
+    for(i = 0; i < distances.length; i++){
+        if(distances[i].distance < shortestDistance){
+            shortest = distances[i];
+            shortestDistance = distances[i].distance;
+        }
+    }
+
+    return shortest;
+}
