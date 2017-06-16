@@ -1,1 +1,22 @@
-/* Your CSS here... */
+
+html {
+	height: 100%;
+	font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#messages{
+	position: relative;
+    background: greenyellow;
+	border-radius: .4em;
+	content: '';
+	position: absolute;
+	border: 20px solid transparent;
+	border-top-color: greenyellow;
+	margin-bottom: -20px;
+}
