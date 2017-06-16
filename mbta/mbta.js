@@ -46,7 +46,7 @@ var BraintreeStation = new google.maps.LatLng(braintree.lat, braintree.lng);
 
 var myOptions = {
     zoom: 13, // The larger the zoom number, the bigger the zoom
-    center: SouthStation,
+    center: myMarker,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 
