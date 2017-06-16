@@ -1,70 +1,48 @@
-var southLat = 42.352271;
-var southLng = -71.05524200000001;
-var andrewLat = 42.330154;
-var andrewLng = -71.057655;
-var porterLat = 42.3884;
-var porterLng = -71.11914899999999;
-var harvardLat = 42.373362;
-var harvardLng = -71.118956;
-var jfkumassLat = 42.320685;
-var jfkumassLng = -71.052391;
-var savinLat = 42.31129;
-var savinLng = -71.053331;
-var parkLat = 42.35639457;
-var parkLng = -71.0624242;
-var broadwayLat = 42.342622;
-var broadwayLng = -71.056967;
-var northquincyLat = 42.275275;
-var northquincyLng = -71.029583;
-var shawmutLat = 42.29312583;
-var shawmutLng = -71.06573796000001;
-var davisLat = 42.39674;
-var davisLng =  -71.121815;
-var alewifeLat = 42.395428;
-var alewifeLng = -71.142483;
-var kendallLat = 42.36249079;
-var kendallLng = -71.08617653;
-var charlesLat = 42.361166;
-var charlesLng = -71.070628;
-var dtncrossingLat = 42.355518;
-var dtncrossingLng = -71.060225;
-var quincycenterLat = 42.251809;
-var quincycenterLng = -71.005409;
-var quincyadamsLat = 42.233391;
-var quincyadamsLng = -71.007153;
-var ashmontLat = 42.284652;
-var ashmontLng = -71.06448899999999;
-var wollastonLat = 42.2665139;
-var wollastonLng = -71.0203369;
-var fieldscornerLat = 42.300093;
-var fieldscornerLng = -71.061667;
-var centralLat = 42.365486;
-var centralLng = -71.103802;
-var braintreeLat = 42.2078543;
-var braintreeLng = -71.0011385;
+var south = {lat: 42.352271, lng: -71.05524200000001};
+var andrew = {lat: 42.330154, lng: -71.057655};
+var porter = {lat: 42.3884, lng: -71.11914899999999};
+var harvard = {lat: 42.373362, lng: -71.118956};
+var jfkumass = {lat: 42.320685, lng: -71.052391};
+var savin = {lat: 42.31129, lng: -71.053331};
+var park = {lat: 42.35639457, lng:-71.0624242};
+var broadway = {lat: 42.342622, lng: -71.056967};
+var northquincy = {lat: 42.275275, lng: -71.029583};
+var shawmut = {lat: 42.29312583, lng: -71.06573796000001};
+var davis = {lat: 42.39674, lng: -71.121815};
+var alewife = {lat: 42.395428, lng: -71.142483};
+var kendall = {lat: 42.36249079, lng: -71.08617653};
+var charles = {lat: 2.361166, lng: -71.070628};
+var dtncrossing = {lat: 42.355518, lng: -71.060225};
+var quincycenter = {lat: 42.251809, lng: -71.005409};
+var quincyadams = {lat: 42.233391, lng: -71.00715};
+var ashmont = {lat: 42.284652, lng: -71.06448899999999};
+var wollaston = {lat: 42.2665139, lng: -71.0203369};
+var fieldscorner = {lat: 42.300093, lng: -71.061667};
+var central = {lat: 42.365486, lng: -71.103802};
+var braintree = {lat: 42.2078543, lng: -71.0011385};
 
-var SouthStation = new google.maps.LatLng(southLat, southLng);
-var AndrewStation = new google.maps.LatLng(andrewLat, andrewLng);
-var PorterStation = new google.maps.LatLng(porterLat, porterLng);
-var HarvardStation = new google.maps.LatLng(harvardLat, harvardLng);
-var JFKUmassStation = new google.maps.LatLng(jfkumassLat, jfkumassLng);
-var SavinHillStation = new google.maps.LatLng(savinLat, savinLng);
-var ParkStreetStation = new google.maps.LatLng(parkLat, parkLng);
-var BroadwayStation = new google.maps.LatLng(broadwayLat, broadwayLng);
-var NorthQuincyStation = new google.maps.LatLng(northquincyLat, northquincyLng);
-var ShawmutStation = new google.maps.LatLng(shawmutLat, shawmutLng);
-var DavisStation = new google.maps.LatLng(davisLat, davisLng);
-var AlewifeStation = new google.maps.LatLng(alewifeLat, alewifeLng);
-var KendallMITStation = new google.maps.LatLng(kendallLat, kendallLng);
-var CharlesMGHStation = new google.maps.LatLng(charlesLat, charlesLng);
-var DowntownCrossingStation = new google.maps.LatLng(dtncrossingLat, dtncrossingLng);
-var QuincyCenterStation = new google.maps.LatLng(quincycenterLat, quincycenterLng);
-var QuincyAdamsStation = new google.maps.LatLng(quincyadamsLat, quincyadamsLng);
-var AshmontStation = new google.maps.LatLng(ashmontLat, ashmontLng);
-var WollastonStation = new google.maps.LatLng(wollastonLat, wollastonLng);
-var FieldsCornerStation = new google.maps.LatLng(fieldscornerLat, fieldscornerLng);
-var CentralStation = new google.maps.LatLng(centralLat, centralLng);
-var BraintreeStation = new google.maps.LatLng(braintreeLat, braintreeLng);
+var SouthStation = new google.maps.LatLng(south.lat, south.lng);
+var AndrewStation = new google.maps.LatLng(andrew.lat, andrew.lng);
+var PorterStation = new google.maps.LatLng(porter.lat, porter.lng);
+var HarvardStation = new google.maps.LatLng(harvard.lat, harvard.lng);
+var JFKUmassStation = new google.maps.LatLng(jfkumass.lat, jfkumass.lng);
+var SavinHillStation = new google.maps.LatLng(savin.lat, savin.lng);
+var ParkStreetStation = new google.maps.LatLng(park.lat, park.lng);
+var BroadwayStation = new google.maps.LatLng(broadway.lat, broadway.lng);
+var NorthQuincyStation = new google.maps.LatLng(northquincy.lat, northquincy.lng);
+var ShawmutStation = new google.maps.LatLng(shawmut.lat, shawmut.lng);
+var DavisStation = new google.maps.LatLng(davis.lat, davis.lng);
+var AlewifeStation = new google.maps.LatLng(alewife.lat, alewife.lng);
+var KendallMITStation = new google.maps.LatLng(kendall.lat, kendall.lng);
+var CharlesMGHStation = new google.maps.LatLng(charles.lat, charles.lng);
+var DowntownCrossingStation = new google.maps.LatLng(dtncrossing.lat, dtncrossing.lng);
+var QuincyCenterStation = new google.maps.LatLng(quincycenter.lat, quincycenter.lng);
+var QuincyAdamsStation = new google.maps.LatLng(quincyadams.lat, quincyadams.lng);
+var AshmontStation = new google.maps.LatLng(ashmont.lat, ashmont.lng);
+var WollastonStation = new google.maps.LatLng(wollaston.lat, wollaston.lng);
+var FieldsCornerStation = new google.maps.LatLng(fieldscorner.lat, fieldscorner.lng);
+var CentralStation = new google.maps.LatLng(central.lat, central.lng);
+var BraintreeStation = new google.maps.LatLng(braintree.lat, braintree.lng);
 
 var myOptions = {
     zoom: 13, // The larger the zoom number, the bigger the zoom
@@ -99,55 +77,49 @@ var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
 
 function getMyLocation() {
-    if (navigator.geolocation) {  
-        navigator.geolocation.getCurrentPosition(function(position) {
-            myLat = position.coords.latitude;
-            myLng = position.coords.longitude;
-            renderMap();
-        });
-    }
-    else {
-        alert("Geolocation is not supported by your web browser.  What a shame!");
-    }
-    renderMap();
+    navigator.geolocation.getCurrentPosition(function(position) {
+        myLat = position.coords.latitude;
+        myLng = position.coords.longitude;
+        renderMap();
+    });
 }
 
 function init()
 {
     map = new google.maps.Map(document.getElementById("map"), myOptions);
     getMyLocation();
-   
+
     var mainPath = [
-        {lat: alewifeLat, lng: alewifeLng},
-        {lat: davisLat, lng: davisLng},
-        {lat: porterLat, lng: porterLng},
-        {lat: harvardLat, lng: harvardLng},
-        {lat: centralLat, lng: centralLng},
-        {lat: kendallLat, lng: kendallLng},
-        {lat: charlesLat, lng: charlesLng},
-        {lat: parkLat, lng: parkLng},
-        {lat: dtncrossingLat, lng: dtncrossingLng},
-        {lat: southLat, lng: southLng},
-        {lat: broadwayLat, lng: broadwayLng},
-        {lat: andrewLat, lng: andrewLng},
-        {lat: jfkumassLat, lng: jfkumassLng}
+        {lat: alewife.lat, lng: alewife.lng},
+        {lat: davis.lat, lng: davis.lng},
+        {lat: porter.lat, lng: porter.lng},
+        {lat: harvard.lat, lng: harvard.lng},
+        {lat: central.lat, lng: central.lng},
+        {lat: kendall.lat, lng: kendall.lng},
+        {lat: charles.lat, lng: charles.lng},
+        {lat: park.lat, lng: park.lng},
+        {lat: dtncrossing.lat, lng: dtncrossing.lng},
+        {lat: south.lat, lng: south.lng},
+        {lat: broadway.lat, lng: broadway.lng},
+        {lat: andrew.lat, lng: andrew.lng},
+        {lat: jfkumass.lat, lng: jfkumass.lng}
     ];
 
     var braintreePath = [
-        {lat: jfkumassLat, lng: jfkumassLng},
-        {lat: northquincyLat, lng: northquincyLng},
-        {lat: wollastonLat, lng: wollastonLng},
-        {lat: quincycenterLat, lng: quincyadamsLng},
-        {lat: quincyadamsLat, lng: quincyadamsLng},
-        {lat: braintreeLat, lng: braintreeLng}
+        {lat: jfkumass.lat, lng: jfkumass.lng},
+        {lat: northquincy.lat, lng: northquincy.lng},
+        {lat: wollaston.lat, lng: wollaston.lng},
+        {lat: quincycenter.lat, lng: quincyadams.lng},
+        {lat: quincyadams.lat, lng: quincyadams.lng},
+        {lat: braintree.lat, lng: braintree.lng}
     ];
 
     var ashmontPath = [
-        {lat: jfkumassLat, lng: jfkumassLng},
-        {lat: savinLat, lng: savinLng},
-        {lat: fieldscornerLat, lng: fieldscornerLng},
-        {lat: shawmutLat, lng: shawmutLng},
-        {lat: ashmontLat, lng: ashmontLng}
+        {lat: jfkumass.lat, lng: jfkumass.lng},
+        {lat: savin.lat, lng: savi.lng},
+        {lat: fieldscorner.lat, lng: fieldscorner.lng},
+        {lat: shawmut.lat, lng: shawmut.lng},
+        {lat: ashmont.lat, lng: ashmont.lng}
     ];
 
 
@@ -192,15 +164,17 @@ function createMarker(marker, station, title){
 
 function addInfo(marker, title){
     google.maps.event.addListener(marker, 'click', function() {
-            infowindow.setContent(title);
-            infowindow.open(map, marker);
-        });
+        infowindow.setContent(title);
+        infowindow.open(map, marker);
+    });
 }
+
+//function closestStation(lat, lng){
+
+//}
 
 function renderMap()
 {
-    console.log(myLat);
-    console.log(myLng);
     var myLocation = new google.maps.LatLng(myLat, myLng);
     myMarker = new google.maps.Marker({
         position: myLocation,
@@ -209,12 +183,12 @@ function renderMap()
     });
     myMarker.setMap(map);
     map.panTo(myLocation);
-    
+
     google.maps.event.addListener(myMarker, 'click', function() {
         infowindow.setContent(myMarker.title);
         infowindow.open(map, myMarker);
     });
-    
+
     southMarker = createMarker(southMarker, SouthStation, "South Station");
     andrewMarker = createMarker(andrewMarker, AndrewStation, "Andrew Station");
     porterMarker = createMarker(porterMarker, PorterStation, "Porter Station");
@@ -237,7 +211,7 @@ function renderMap()
     fieldscornerMarker = createMarker(fieldscornerMarker, FieldsCornerStation, "Fields Corner Station");
     centralMarker = createMarker(centralMarker, CentralStation, "Central Station");
     braintreeMarker = createMarker(braintreeMarker, BraintreeStation, "Braintree Station");
-    
+
     addInfo(southMarker, southMarker.title);
     addInfo(andrewMarker, andrewMarker.title);
     addInfo(porterMarker, porterMarker.title);
@@ -260,6 +234,5 @@ function renderMap()
     addInfo(fieldscornerMarker, fieldscornerMarker.title);
     addInfo(centralMarker, centralMarker.title);
     addInfo(braintreeMarker, braintreeMarker.title);
-
 }
 
