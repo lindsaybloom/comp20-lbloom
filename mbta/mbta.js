@@ -71,7 +71,9 @@ var myOptions = {
     center: SouthStation,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
+
 var map;
+var myMarker;
 var southMarker;
 var andrewMarker;
 var porterMarker;
@@ -96,17 +98,25 @@ var centralMarker;
 var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
 
-function center() {
-    southLat = 42.352271;
-    southLng = -71.05524200000001
+function getMyLocation() {
+    if (navigator.geolocation) {  
+        navigator.geolocation.getCurrentPosition(function(position) {
+            myLat = position.coords.latitude;
+            myLng = position.coords.longitude;
+            renderMap();
+        });
+    }
+    else {
+        alert("Geolocation is not supported by your web browser.  What a shame!");
+    }
     renderMap();
 }
 
 function init()
 {
     map = new google.maps.Map(document.getElementById("map"), myOptions);
-    center();
-  
+    getMyLocation();
+   
     var mainPath = [
         {lat: alewifeLat, lng: alewifeLng},
         {lat: davisLat, lng: davisLng},
@@ -122,7 +132,7 @@ function init()
         {lat: andrewLat, lng: andrewLng},
         {lat: jfkumassLat, lng: jfkumassLng}
     ];
-    
+
     var braintreePath = [
         {lat: jfkumassLat, lng: jfkumassLng},
         {lat: northquincyLat, lng: northquincyLng},
@@ -131,7 +141,7 @@ function init()
         {lat: quincyadamsLat, lng: quincyadamsLng},
         {lat: braintreeLat, lng: braintreeLng}
     ];
-    
+
     var ashmontPath = [
         {lat: jfkumassLat, lng: jfkumassLng},
         {lat: savinLat, lng: savinLng},
@@ -140,7 +150,7 @@ function init()
         {lat: ashmontLat, lng: ashmontLng}
     ];
 
-    
+
     var mainLine = new google.maps.Polyline({
         path: mainPath,
         geodesic: true,
@@ -149,7 +159,7 @@ function init()
         strokeWeight: 2
     });
     mainLine.setMap(map);
-    
+
     var braintreeLine = new google.maps.Polyline({
         path: braintreePath,
         geodesic: true,
@@ -158,7 +168,7 @@ function init()
         strokeWeight: 2
     });
     braintreeLine.setMap(map);
-    
+
     var ashmontLine = new google.maps.Polyline({
         path: ashmontPath,
         geodesic: true,
@@ -167,281 +177,89 @@ function init()
         strokeWeight: 2
     });
     ashmontLine.setMap(map);
-    
+
+}
+
+function createMarker(marker, station, title){
+    marker = new google.maps.Marker({
+        position: station,
+        title: title,
+        icon: 'marker.png'
+    });
+    marker.setMap(map);
+    return marker;
+}
+
+function addInfo(marker, title){
+    google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(title);
+            infowindow.open(map, marker);
+        });
 }
 
 function renderMap()
 {
-    SouthStation = new google.maps.LatLng(southLat, southLng);
+    console.log(myLat);
+    console.log(myLng);
+    var myLocation = new google.maps.LatLng(myLat, myLng);
+    myMarker = new google.maps.Marker({
+        position: myLocation,
+        title: "Your location",
+        icon: 'me.png'
+    });
+    myMarker.setMap(map);
+    map.panTo(myLocation);
+    
+    google.maps.event.addListener(myMarker, 'click', function() {
+        infowindow.setContent(myMarker.title);
+        infowindow.open(map, myMarker);
+    });
+    
+    southMarker = createMarker(southMarker, SouthStation, "South Station");
+    andrewMarker = createMarker(andrewMarker, AndrewStation, "Andrew Station");
+    porterMarker = createMarker(porterMarker, PorterStation, "Porter Station");
+    harvardMarker = createMarker(harvardMarker, HarvardStation, "Harvard Station");
+    jfkumassMarker = createMarker(jfkumassMarker, JFKUmassStation, "JFK/UMASS Station");
+    savinMarker = createMarker(savinMarker, SavinHillStation, "Savin Hill Station");
+    parkMarker = createMarker(parkMarker, ParkStreetStation, "Park Street Station");
+    broadwayMarker = createMarker(broadwayMarker, BroadwayStation, "Broadway Station");
+    northquincyMarker = createMarker(northquincyMarker, NorthQuincyStation, "North Quincy Station");
+    shawmutMarker = createMarker(shawmutMarker, ShawmutStation, "Shawmut Station");
+    davisMarker = createMarker(davisMarker, DavisStation, "Davis Station");
+    alewifeMarker = createMarker(alewifeMarker, AlewifeStation, "Alewife Station");
+    kendallMarker = createMarker(kendallMarker, KendallMITStation, "Kendall/MIT Station");
+    charlesMarker = createMarker(charlesMarker, CharlesMGHStation, "Charles MGH Station");
+    dtncrossingMarker = createMarker(dtncrossingMarker, DowntownCrossingStation, "Downtown Crossing Station");
+    quincycenterMarker = createMarker(quincycenterMarker, QuincyCenterStation, "Quincy Center Station");
+    quincyadamsMarker = createMarker(quincyadamsMarker, QuincyAdamsStation, "Quincy Adams Station");
+    ashmontMarker = createMarker(ashmontMarker, AshmontStation, "Ashmont Station");
+    wollastonMarker = createMarker(wollastonMarker, WollastonStation, "Wollaston Station");
+    fieldscornerMarker = createMarker(fieldscornerMarker, FieldsCornerStation, "Fields Corner Station");
+    centralMarker = createMarker(centralMarker, CentralStation, "Central Station");
+    braintreeMarker = createMarker(braintreeMarker, BraintreeStation, "Braintree Station");
+    
+    addInfo(southMarker, southMarker.title);
+    addInfo(andrewMarker, andrewMarker.title);
+    addInfo(porterMarker, porterMarker.title);
+    addInfo(harvardMarker, harvardMarker.title);
+    addInfo(jfkumassMarker, jfkumassMarker.title);
+    addInfo(savinMarker, savinMarker.title);
+    addInfo(parkMarker, parkMarker.title);
+    addInfo(broadwayMarker, broadwayMarker.title);
+    addInfo(northquincyMarker, northquincyMarker.title);
+    addInfo(shawmutMarker, shawmutMarker.title);
+    addInfo(davisMarker, davisMarker.title);
+    addInfo(alewifeMarker, alewifeMarker.title);
+    addInfo(kendallMarker, kendallMarker.title);
+    addInfo(charlesMarker, charlesMarker.title);
+    addInfo(dtncrossingMarker, dtncrossingMarker.title);
+    addInfo(quincycenterMarker, quincycenterMarker.title);
+    addInfo(quincyadamsMarker, quincyadamsMarker.title);
+    addInfo(ashmontMarker, ashmontMarker.title);
+    addInfo(wollastonMarker, wollastonMarker.title);
+    addInfo(fieldscornerMarker, fieldscornerMarker.title);
+    addInfo(centralMarker, centralMarker.title);
+    addInfo(braintreeMarker, braintreeMarker.title);
 
-    map.panTo(SouthStation);
-    
-    
-
-    //marker pins for each station
-    southMarker = new google.maps.Marker({
-        position: SouthStation,
-        title: "South Station",
-        icon: 'marker.png'
-    });
-    southMarker.setMap(map);
-    
-    andrewMarker = new google.maps.Marker({
-        position: AndrewStation,
-        title: "Andrew Station",
-        icon: 'marker.png'
-    });
-    andrewMarker.setMap(map);
-    
-    porterMarker = new google.maps.Marker({
-        position: PorterStation,
-        title: "Porter Square Station",
-        icon: 'marker.png'
-    });
-    porterMarker.setMap(map);
-    
-    harvardMarker = new google.maps.Marker({
-        position: HarvardStation,
-        title: "Harvard Square Station",
-        icon: 'marker.png'
-    });
-    harvardMarker.setMap(map);
-
-    jfkumassMarker = new google.maps.Marker({
-        position: JFKUmassStation,
-        title: "JFK/UMass Station",
-        icon: 'marker.png'
-    });
-    jfkumassMarker.setMap(map);
-    
-    savinMarker = new google.maps.Marker({
-        position: SavinHillStation,
-        title: "Savin Hill Station",
-        icon: 'marker.png'
-    });
-    savinMarker.setMap(map);
-    
-    parkMarker = new google.maps.Marker({
-        position: ParkStreetStation,
-        title: "Park Street Station",
-        icon: 'marker.png'
-    });
-    parkMarker.setMap(map);
-    
-    broadwayMarker = new google.maps.Marker({
-        position: BroadwayStation,
-        title: "Broadway Station",
-        icon: 'marker.png'
-    });
-    broadwayMarker.setMap(map);
-    
-    northquincyMarker = new google.maps.Marker({
-        position: NorthQuincyStation,
-        title: "North Quincy Station",
-        icon: 'marker.png'
-    });
-    northquincyMarker.setMap(map);
-    
-    shawmutMarker = new google.maps.Marker({
-        position: ShawmutStation,
-        title: "Shawmut Station",
-        icon: 'marker.png'
-    });
-    shawmutMarker.setMap(map);
-    
-    davisMarker = new google.maps.Marker({
-        position: DavisStation,
-        title: "Davis Square Station",
-        icon: 'marker.png'
-    });
-    davisMarker.setMap(map);
-    
-    alewifeMarker = new google.maps.Marker({
-        position: AlewifeStation,
-        title: "Alewife Station",
-        icon: 'marker.png'
-    });
-    alewifeMarker.setMap(map);
-    
-    kendallMarker = new google.maps.Marker({
-        position: KendallMITStation,
-        title: "Kendall/MIT Station",
-        icon: 'marker.png'
-    });
-    kendallMarker.setMap(map);
-    
-    charlesMarker = new google.maps.Marker({
-        position: CharlesMGHStation,
-        title: "Charles/MGH Station",
-        icon: 'marker.png'
-    });
-    charlesMarker.setMap(map);
-    
-    dtncrossingMarker = new google.maps.Marker({
-        position: DowntownCrossingStation,
-        title: "Downtown Crossing Station",
-        icon: 'marker.png'
-    });
-    dtncrossingMarker.setMap(map);
-    
-    quincycenterMarker = new google.maps.Marker({
-        position: QuincyCenterStation,
-        title: "Quincy Center Station",
-        icon: 'marker.png'
-    });
-    quincycenterMarker.setMap(map);
-    
-    quincyadamsMarker = new google.maps.Marker({
-        position: QuincyAdamsStation,
-        title: "Quincy Adams Station",
-        icon: 'marker.png'
-    });
-    quincyadamsMarker.setMap(map);
-    
-    ashmontMarker = new google.maps.Marker({
-        position: AshmontStation,
-        title: "Ashmont Station",
-        icon: 'marker.png'
-    });
-    ashmontMarker.setMap(map);
-    
-    wollastonMarker = new google.maps.Marker({
-        position: WollastonStation,
-        title: "Wollaston Station",
-        icon: 'marker.png'
-    });
-    wollastonMarker.setMap(map);
-    
-    fieldscornerMarker = new google.maps.Marker({
-        position: FieldsCornerStation,
-        title: "Fields Corner Station",
-        icon: 'marker.png'
-    });
-    fieldscornerMarker.setMap(map);
-    
-    centralMarker = new google.maps.Marker({
-        position: CentralStation,
-        title: "Central Square Station",
-        icon: 'marker.png'
-    });
-    centralMarker.setMap(map);
-    
-    braintreeMarker= new google.maps.Marker({
-        position: BraintreeStation,
-        title: "Braintree Station",
-        icon: 'marker.png'
-    });
-    braintreeMarker.setMap(map);
-    
-    //Info windows for each station
-    google.maps.event.addListener(southMarker, 'click', function() {
-        infowindow.setContent(southMarker.title);
-        infowindow.open(map, southMarker);
-    });
-    
-     google.maps.event.addListener(andrewMarker, 'click', function() {
-        infowindow.setContent(andrewMarker.title);
-        infowindow.open(map, andrewMarker);
-    });
-    
-     google.maps.event.addListener(porterMarker, 'click', function() {
-        infowindow.setContent(porterMarker.title);
-        infowindow.open(map, porterMarker);
-    });
-    
-     google.maps.event.addListener(harvardMarker, 'click', function() {
-        infowindow.setContent(harvardMarker.title);
-        infowindow.open(map, harvardMarker);
-    });
-    
-    google.maps.event.addListener(jfkumassMarker, 'click', function() {
-        infowindow.setContent(jfkumassMarker.title);
-        infowindow.open(map, jfkumassMarker);
-    });
-    
-    google.maps.event.addListener(savinMarker, 'click', function() {
-        infowindow.setContent(savinMarker.title);
-        infowindow.open(map, savinMarker);
-    });
-    
-    google.maps.event.addListener(parkMarker, 'click', function() {
-        infowindow.setContent(parkMarker.title);
-        infowindow.open(map, parkMarker);
-    });
-    
-    google.maps.event.addListener(broadwayMarker, 'click', function() {
-        infowindow.setContent(broadwayMarker.title);
-        infowindow.open(map, broadwayMarker);
-    });
-    
-    google.maps.event.addListener(northquincyMarker, 'click', function() {
-        infowindow.setContent(northquincyMarker.title);
-        infowindow.open(map, northquincyMarker);
-    });
-    
-    google.maps.event.addListener(shawmutMarker, 'click', function() {
-        infowindow.setContent(shawmutMarker.title);
-        infowindow.open(map, shawmutMarker);
-    });
-    
-    google.maps.event.addListener(davisMarker, 'click', function() {
-        infowindow.setContent(davisMarker.title);
-        infowindow.open(map, davisMarker);
-    });
-    
-    google.maps.event.addListener(alewifeMarker, 'click', function() {
-        infowindow.setContent(alewifeMarker.title);
-        infowindow.open(map, alewifeMarker);
-    });
-    
-    google.maps.event.addListener(kendallMarker, 'click', function() {
-        infowindow.setContent(kendallMarker.title);
-        infowindow.open(map, kendallMarker);
-    });
-    
-    google.maps.event.addListener(charlesMarker, 'click', function() {
-        infowindow.setContent(charlesMarker.title);
-        infowindow.open(map, charlesMarker);
-    });
-    
-    google.maps.event.addListener(dtncrossingMarker, 'click', function() {
-        infowindow.setContent(dtncrossingMarker.title);
-        infowindow.open(map, dtncrossingMarker);
-    });
-    
-    google.maps.event.addListener(quincycenterMarker, 'click', function() {
-        infowindow.setContent(quincycenterMarker.title);
-        infowindow.open(map, quincycenterMarker);
-    });
-    
-    google.maps.event.addListener(quincyadamsMarker, 'click', function() {
-        infowindow.setContent(quincyadamsMarker.title);
-        infowindow.open(map, quincyadamsMarker);
-    });
-    
-    google.maps.event.addListener(ashmontMarker, 'click', function() {
-        infowindow.setContent(ashmontMarker.title);
-        infowindow.open(map, ashmontMarker);
-    });
-    
-    google.maps.event.addListener(wollastonMarker, 'click', function() {
-        infowindow.setContent(wollastonMarker.title);
-        infowindow.open(map, wollastonMarker);
-    });
-    
-    google.maps.event.addListener(fieldscornerMarker, 'click', function() {
-        infowindow.setContent(fieldscornerMarker.title);
-        infowindow.open(map, fieldscornerMarker);
-    });
-    
-    google.maps.event.addListener(centralMarker, 'click', function() {
-        infowindow.setContent(centralMarker.title);
-        infowindow.open(map, centralMarker);
-    });
-    
-    google.maps.event.addListener(braintreeMarker, 'click', function() {
-        infowindow.setContent(braintreeMarker.title);
-        infowindow.open(map, braintreeMarker);
-    });
-    
 }
+
