@@ -165,9 +165,9 @@ function createMarker(marker, station, title){
     return marker;
 }
 
-function addInfo(marker, title){
+function addInfo(marker, title, name){
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(title);
+        infowindow.setContent(title + " schedule: " + trainSchedule(name));
         infowindow.open(map, marker);
     });
 }
@@ -208,7 +208,7 @@ function renderMap()
 
     var nearestStation = closestStation();
     google.maps.event.addListener(myMarker, 'click', function() {
-        infowindow.setContent(nearestStation.name + " is the nearest station to your current location.");
+        infowindow.setContent(nearestStation.name + " is the nearest station to your current location at a distance of " + (nearestStation.distance*0.000621371).toFixed(2) + 'miles.');
         infowindow.open(map, myMarker);
     });
     myPath = [
@@ -225,28 +225,28 @@ function renderMap()
     });
     closestLine.setMap(map);
 
-    addInfo(southMarker, southMarker.title);
-    addInfo(andrewMarker, andrewMarker.title);
-    addInfo(porterMarker, porterMarker.title);
-    addInfo(harvardMarker, harvardMarker.title);
-    addInfo(jfkumassMarker, jfkumassMarker.title);
-    addInfo(savinMarker, savinMarker.title);
-    addInfo(parkMarker, parkMarker.title);
-    addInfo(broadwayMarker, broadwayMarker.title);
-    addInfo(northquincyMarker, northquincyMarker.title);
-    addInfo(shawmutMarker, shawmutMarker.title);
-    addInfo(davisMarker, davisMarker.title);
-    addInfo(alewifeMarker, alewifeMarker.title);
-    addInfo(kendallMarker, kendallMarker.title);
-    addInfo(charlesMarker, charlesMarker.title);
-    addInfo(dtncrossingMarker, dtncrossingMarker.title);
-    addInfo(quincycenterMarker, quincycenterMarker.title);
-    addInfo(quincyadamsMarker, quincyadamsMarker.title);
-    addInfo(ashmontMarker, ashmontMarker.title);
-    addInfo(wollastonMarker, wollastonMarker.title);
-    addInfo(fieldscornerMarker, fieldscornerMarker.title);
-    addInfo(centralMarker, centralMarker.title);
-    addInfo(braintreeMarker, braintreeMarker.title);
+    addInfo(southMarker, southMarker.title, "south");
+    addInfo(andrewMarker, andrewMarker.title, "andrew");
+    addInfo(porterMarker, porterMarker.title, "porter");
+    addInfo(harvardMarker, harvardMarker.title, "harvard");
+    addInfo(jfkumassMarker, jfkumassMarker.title, "jfkumass");
+    addInfo(savinMarker, savinMarker.title, "savin");
+    addInfo(parkMarker, parkMarker.title, "park");
+    addInfo(broadwayMarker, broadwayMarker.title, "broadway");
+    addInfo(northquincyMarker, northquincyMarker.title, "northquincy");
+    addInfo(shawmutMarker, shawmutMarker.title, "shawmut");
+    addInfo(davisMarker, davisMarker.title, "davis");
+    addInfo(alewifeMarker, alewifeMarker.title, "alewife");
+    addInfo(kendallMarker, kendallMarker.title, "kendall");
+    addInfo(charlesMarker, charlesMarker.title, "charles");
+    addInfo(dtncrossingMarker, dtncrossingMarker.title, "dtncrossing");
+    addInfo(quincycenterMarker, quincycenterMarker.title, "quincycenter");
+    addInfo(quincyadamsMarker, quincyadamsMarker.title, "quincyadams");
+    addInfo(ashmontMarker, ashmontMarker.title, "ashmont");
+    addInfo(wollastonMarker, wollastonMarker.title, "wollaston");
+    addInfo(fieldscornerMarker, fieldscornerMarker.title, "fieldscorner");
+    addInfo(centralMarker, centralMarker.title, "central");
+    addInfo(braintreeMarker, braintreeMarker.title, "braintree");
 
 }
 
@@ -286,4 +286,56 @@ function closestStation(){
     }
 
     return shortest;
+}
+
+function trainSchedule(station){
+    
+    var ids = [
+        {"alewife": 70061},
+        {"davis": 70063},
+        {"porter": 70065},
+        {"harvard": 70067},
+        {"central": 70069},
+        {"kendall": 70071},
+        {"charles": 70073},
+        {"park": 70075},
+        {"dtncrossing": 70077},
+        {"south": 70079},
+        {"broadway": 70081},
+        {"andrew": 70083},
+        {"jfkumass": 70085},
+        {"northquincy": 70097},
+        {"wollaston": 70099},
+        {"quincycenter": 70101},
+        {"quincyadams": 70103},
+        {"braintree": 70105},
+        {"savin": 70087},
+        {"fieldscorner": 70089},
+        {"shawmut": 70091},
+        {"ashmont": 70093}
+    ]
+    
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://defense-in-derpth.herokuapp.com/redline.json";
+    var info;
+    xmlhttp.open("GET", url, true);
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var sched = JSON.parse(this.responseText);
+            var out = "";
+            var i, j;
+            var stationSched;
+            for(i = 0; i < sched.TripList.Trips.length; i++){
+                for(j = 0; j < sched.TripList.Trips[i].Predictions.length; j++){
+                    if(sched.TripList.Trips[i].Predictions[j].StopID == ids.station){
+                        info.push = sched.TripList.Trips[i].Predictions[j].Seconds;
+                    }
+                }
+            }
+        }
+    };
+
+    xmlhttp.send();
+    return info;
 }
