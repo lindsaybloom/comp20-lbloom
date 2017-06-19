@@ -9,7 +9,7 @@ Hours spent completing assignment: 3
 
 Question: Is it possible to request the data from a different origin (e.g., http://messagehub.herokuapp.com/) or from your local machine (from file:///) from using XMLHttpRequest? Why or why not?
 
-It is not possible to request data from a different origin or from your local machine, however there are restrictions. This is for security reasons and "is a critical security mechanism for isolating potentially malicious documents" (source: MDN). There are 2 exceptions, however:
+It is possible to request data from a different origin or from your local machine, however there are restrictions. This is for security reasons and "is a critical security mechanism for isolating potentially malicious documents" (source: MDN). There are 2 exceptions, however:
 
 Trust Zones: if both domains are in highly trusted zone e.g, corporate domains, then the same origin limitations are not applied
 
