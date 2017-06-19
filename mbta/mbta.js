@@ -166,8 +166,13 @@ function createMarker(marker, station, title){
 }
 
 function addInfo(marker, title, name){
+    var schedule = trainSchedule(name);
+    var mins = 0;
+    if(schedule.length > 0){
+        mins = (schedule[0]*60).toFixed(2);
+    }
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(title + " schedule: " + trainSchedule(name));
+        infowindow.setContent("The next train to " + title + " will arrive in " + mins + " minutes");
         infowindow.open(map, marker);
     });
 }
@@ -247,9 +252,7 @@ function renderMap()
     addInfo(fieldscornerMarker, fieldscornerMarker.title, "fieldscorner");
     addInfo(centralMarker, centralMarker.title, "central");
     addInfo(braintreeMarker, braintreeMarker.title, "braintree");
-
 }
-
 
 function closestStation(){
     var distances = [
@@ -288,36 +291,35 @@ function closestStation(){
     return shortest;
 }
 
+var ids = {
+    alewife: 70061,
+    davis: 70063,
+    porter: 70065,
+    harvard: 70067,
+    central: 70069,
+    kendall: 70071,
+    charles: 70073,
+    park: 70075,
+    dtncrossing: 70077,
+    south: 70079,
+    broadway: 70081,
+    andrew: 70083,
+    jfkumass: 70085,
+    northquincy: 70097,
+    wollaston: 70099,
+    quincycenter: 70101,
+    quincyadams: 70103,
+    braintree: 70105,
+    savin: 70087,
+    fieldscorner: 70089,
+    shawmut: 70091,
+    ashmont: 70093
+};
+
 function trainSchedule(station){
-    
-    var ids = [
-        {"alewife": 70061},
-        {"davis": 70063},
-        {"porter": 70065},
-        {"harvard": 70067},
-        {"central": 70069},
-        {"kendall": 70071},
-        {"charles": 70073},
-        {"park": 70075},
-        {"dtncrossing": 70077},
-        {"south": 70079},
-        {"broadway": 70081},
-        {"andrew": 70083},
-        {"jfkumass": 70085},
-        {"northquincy": 70097},
-        {"wollaston": 70099},
-        {"quincycenter": 70101},
-        {"quincyadams": 70103},
-        {"braintree": 70105},
-        {"savin": 70087},
-        {"fieldscorner": 70089},
-        {"shawmut": 70091},
-        {"ashmont": 70093}
-    ]
-    
     var xmlhttp = new XMLHttpRequest();
-    var url = "https://defense-in-derpth.herokuapp.com/redline.json";
-    var info;
+    var url = "https://defense-in-derpth.herokuapp.com/redline.json"; 
+    var info = new Array();
     xmlhttp.open("GET", url, true);
 
     xmlhttp.onreadystatechange = function() {
@@ -325,17 +327,15 @@ function trainSchedule(station){
             var sched = JSON.parse(this.responseText);
             var out = "";
             var i, j;
-            var stationSched;
             for(i = 0; i < sched.TripList.Trips.length; i++){
                 for(j = 0; j < sched.TripList.Trips[i].Predictions.length; j++){
-                    if(sched.TripList.Trips[i].Predictions[j].StopID == ids.station){
-                        info.push = sched.TripList.Trips[i].Predictions[j].Seconds;
+                    if(sched.TripList.Trips[i].Predictions[j].StopID == ids[station]){
+                        info.push(sched.TripList.Trips[i].Predictions[j].Seconds);
                     }
                 }
             }
         }
     };
-
     xmlhttp.send();
     return info;
 }
