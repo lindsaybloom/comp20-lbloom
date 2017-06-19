@@ -1,8 +1,11 @@
 # Messages Part 2
 
 What has been completed: Everything
+
 Collaborated with: Ming
+
 Hours spent completing assignment: 3
+
 
 Question: Is it possible to request the data from a different origin (e.g., http://messagehub.herokuapp.com/) or from your local machine (from file:///) from using XMLHttpRequest? Why or why not?
 
