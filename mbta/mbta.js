@@ -78,6 +78,31 @@ var centralMarker;
 var braintreeMarker;
 var infowindow = new google.maps.InfoWindow();
 
+var ids = {
+    alewife: 70061,
+    davis: 70063,
+    porter: 70065,
+    harvard: 70067,
+    central: 70069,
+    kendall: 70071,
+    charles: 70073,
+    park: 70075,
+    dtncrossing: 70077,
+    south: 70079,
+    broadway: 70081,
+    andrew: 70083,
+    jfkumass: 70085,
+    northquincy: 70097,
+    wollaston: 70099,
+    quincycenter: 70101,
+    quincyadams: 70103,
+    braintree: 70105,
+    savin: 70087,
+    fieldscorner: 70089,
+    shawmut: 70091,
+    ashmont: 70093
+};
+
 
 function getMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -166,14 +191,39 @@ function createMarker(marker, station, title){
 }
 
 function addInfo(marker, title, name){
-    var schedule = trainSchedule(name);
-    var mins = 0;
-    if(schedule.length > 0){
-        mins = (schedule[0]*60).toFixed(2);
-    }
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent("The next train to " + title + " will arrive in " + mins + " minutes");
-        infowindow.open(map, marker);
+        var xmlhttp = new XMLHttpRequest();
+        var url = "https://defense-in-derpth.herokuapp.com/redline.json"; 
+        var info = new Array();
+        xmlhttp.open("GET", url, true);
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var sched = JSON.parse(this.responseText);
+                var out = "";
+                var i, j;
+                for(i = 0; i < sched.TripList.Trips.length; i++){
+                    for(j = 0; j < sched.TripList.Trips[i].Predictions.length; j++){
+                        if(sched.TripList.Trips[i].Predictions[j].StopID == ids[name]){
+                            info.push(sched.TripList.Trips[i].Predictions[j].Seconds);
+                        }
+                    }
+                }
+            }
+            if(info.length >= 3){
+                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[2]/60).toFixed(2) + " minutes");
+                infowindow.open(map, marker);
+            }
+            if(info.length == 2){
+                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes");
+                infowindow.open(map, marker);
+            }
+            if(info.length == 1){
+                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes");
+                infowindow.open(map, marker);
+            }
+        };
+
+        xmlhttp.send();
     });
 }
 
@@ -289,53 +339,4 @@ function closestStation(){
     }
 
     return shortest;
-}
-
-var ids = {
-    alewife: 70061,
-    davis: 70063,
-    porter: 70065,
-    harvard: 70067,
-    central: 70069,
-    kendall: 70071,
-    charles: 70073,
-    park: 70075,
-    dtncrossing: 70077,
-    south: 70079,
-    broadway: 70081,
-    andrew: 70083,
-    jfkumass: 70085,
-    northquincy: 70097,
-    wollaston: 70099,
-    quincycenter: 70101,
-    quincyadams: 70103,
-    braintree: 70105,
-    savin: 70087,
-    fieldscorner: 70089,
-    shawmut: 70091,
-    ashmont: 70093
-};
-
-function trainSchedule(station){
-    var xmlhttp = new XMLHttpRequest();
-    var url = "https://defense-in-derpth.herokuapp.com/redline.json"; 
-    var info = new Array();
-    xmlhttp.open("GET", url, true);
-
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var sched = JSON.parse(this.responseText);
-            var out = "";
-            var i, j;
-            for(i = 0; i < sched.TripList.Trips.length; i++){
-                for(j = 0; j < sched.TripList.Trips[i].Predictions.length; j++){
-                    if(sched.TripList.Trips[i].Predictions[j].StopID == ids[station]){
-                        info.push(sched.TripList.Trips[i].Predictions[j].Seconds);
-                    }
-                }
-            }
-        }
-    };
-    xmlhttp.send();
-    return info;
 }
