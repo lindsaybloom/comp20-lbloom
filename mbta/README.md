@@ -4,7 +4,7 @@ What has been implemented: everything
 
 Collaborated with: no one
 
-Hours spent completing assignment: 3
+Hours spent completing assignment: 8
 
 Sources:
 
