@@ -198,7 +198,7 @@ function addInfo(marker, title, name){
         xmlhttp.open("GET", url, true);
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var sched = JSON.parse(xmlhttp.responseText);
+                var sched = JSON.parse(this.responseText);
                 var out = "";
                 var i, j;
                 for(i = 0; i < sched.TripList.Trips.length; i++){
@@ -208,7 +208,7 @@ function addInfo(marker, title, name){
                         }
                     }
                 }
-            }
+            //}
             if(info.length >= 3){
                 infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[2]/60).toFixed(2) + " minutes");
                 infowindow.open(map, marker);
@@ -222,6 +222,7 @@ function addInfo(marker, title, name){
                 infowindow.open(map, marker);
             }
         };
+        }
 
         xmlhttp.send();
     });
