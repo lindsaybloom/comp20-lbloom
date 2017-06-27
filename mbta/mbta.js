@@ -198,7 +198,7 @@ function addInfo(marker, title, name){
         xmlhttp.open("GET", url, true);
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var sched = JSON.parse(this.responseText);
+                var sched = JSON.parse(xmlhttp.responseText);
                 var out = "";
                 var i, j;
                 for(i = 0; i < sched.TripList.Trips.length; i++){
