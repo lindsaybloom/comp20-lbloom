@@ -208,20 +208,20 @@ function addInfo(marker, title, name){
                         }
                     }
                 }
-            //}
-            if(info.length >= 3){
-                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[2]/60).toFixed(2) + " minutes");
-                infowindow.open(map, marker);
+                //}
+                if(info.length >= 3){
+                    infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[2]/60).toFixed(2) + " minutes");
+                    infowindow.open(map, marker);
+                }
+                if(info.length == 2){
+                    infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes");
+                    infowindow.open(map, marker);
+                }
+                if(info.length == 1){
+                    infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes");
+                    infowindow.open(map, marker);
+                }
             }
-            if(info.length == 2){
-                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes"+ "<br>" + "Arriving in " + (info[1]/60).toFixed(2) + " minutes");
-                infowindow.open(map, marker);
-            }
-            if(info.length == 1){
-                infowindow.setContent(title + " train schedule: " + "<br>" + "Arriving in " + (info[0]/60).toFixed(2) + " minutes");
-                infowindow.open(map, marker);
-            }
-        };
         }
 
         xmlhttp.send();
