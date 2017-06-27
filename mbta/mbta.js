@@ -193,7 +193,7 @@ function createMarker(marker, station, title){
 function addInfo(marker, title, name){
     google.maps.event.addListener(marker, 'click', function() {
         var xmlhttp = new XMLHttpRequest();
-        var url = "https://defense-in-derpth.herokuapp.com/redline.json"; 
+        var url = "https://intense-ocean-57182.herokuapp.com/redline.json"; 
         var info = new Array();
         xmlhttp.open("GET", url, true);
         xmlhttp.onreadystatechange = function() {
