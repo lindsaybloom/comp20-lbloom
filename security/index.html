@@ -22,23 +22,23 @@
         <ol>
             <li><p><strong>Cross Site Scripting</strong></p></li>
             <ul>
-                <li>Allows attackers to bypass same-origin policy</li>
-                <li>XXS has high severity due to the fact that the most severe XSS attacks involve disclosure of the user’s session cookie, allowing an attacker to hijack the user’s session and take over the account</li>
+                <li>Allows attackers to bypass same-origin policy.</li>
+                <li>XXS has high severity due to the fact that the most severe XSS attacks involve disclosure of the user’s session cookie, allowing an attacker to hijack the user’s session and take over the account.</li>
                 <li>This issue was found in the POST requests in server-vuln.js, which requests login, lat and lng credentials. For example, running "curl --data "login=Lindsay&lat=100&lng=50" could affect a client</li>
-                <li>This issue can be fixed by never inserting untrusted data except in allowed locations as well as HTML escape before inserting untrusted data into HTML element content</li>
+                <li>This issue can be fixed by never inserting untrusted data except in allowed locations as well as HTML escape before inserting untrusted data into HTML element content.</li>
             </ul>
             <li><strong><p>Injection</p></strong></li>
             <ul>
                 <li>Injection flaws occur when an application sends untrusted data to an interpreter. Injection flaws are very prevalent, particularly in legacy code. They are often found in SQL, LDAP, Xpath, or NoSQL queries.</li>
-                <li>High severity due to the fact that injection can result in data loss or corruption, lack of accountability, or denial of access. Injection can sometimes lead to complete host takeover</li>
+                <li>High severity due to the fact that injection can result in data loss or corruption, lack of accountability, or denial of access. Injection can sometimes lead to complete host takeover.</li>
                 <li>This issue is found in the image below in the red rectangles where the user input is passed directly into the MongoDB query without sanitization. <img src = "injection.png"></li>
                 <li>A way to ensure the safety of user data is to use a safe API, which avoids the use of the interpreter entirely or provides a parameterized interface.</li>
             </ul>
-            <li><strong><p>Using Components with Known Vulnerabilities</p></strong></li>
+            <li><strong><p>Extensibility and Complexity/Using Components with Known Vulnerabilities</p></strong></li>
             <ul>
-                <li>Components, such as libraries, frameworks, and other software modules, almost always run with full privileges. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications using components with known vulnerabilities may undermine application defenses and enable a range of possible attacks and impacts.</li>
+                <li>Components, such as libraries, frameworks, and other software modules, almost always run with full privileges. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications using components with known vulnerabilities may undermine application defenses and enable a range of possible attacks and impacts. Additionally, this falls under the category of the <a href ="https://freedom-to-tinker.com/2006/02/15/software-security-trinity-trouble/" target=blank>The Trinity of Trouble</a> within the extensibility and complexity categories.</li>
                 <li>The level of severity is medium, but can really span across all levels since the impact could range from minimal to complete host takeover and data compromise.</li>
-                <li>Since this program was built using the Express framework, it is vulnerable to whatever security issues Express has.</li>
+                <li>Since this program was built using the Express framework, it is vulnerable to whatever security issues Express has. Express is <a href = "https://expressjs.com/en/advanced/security-updates.html" target=blank>known to have had security vulnerabilities in the past.</a></li>
                 <li>A way to avoid this vulnerability would be to not use any frameworks or libararies and build some of your own to use.</li>
             </ul>
         
